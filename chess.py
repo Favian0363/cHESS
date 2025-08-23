@@ -1,121 +1,66 @@
 import pygame
+from piece_module import Piece  
 
 pygame.init()
 
 screen = pygame.display.set_mode((640,640))
 pygame.display.set_caption("Chess")
-
 size = 1.5
-
 board = pygame.image.load('board.png').convert()
-
 board = pygame.transform.scale(board,
                                (board.get_width() / 1.6,
                                 board.get_height() / 1.6))
 
-blackBishop = pygame.image.load('black-bishop.png').convert_alpha()
-blackBishop_rect = blackBishop.get_rect()
-blackBishop = pygame.transform.scale(blackBishop,
-                                     (blackBishop.get_width() / size,
-                                      blackBishop.get_height() / size))
+all_pieces = [
+    Piece("black", "rook", (-3, -3), "black-rook"),
+    Piece("black", "knight", (77, -3), "black-knight"),
+    Piece("black", "bishop", (157, -3), "black-bishop"),
+    Piece("black", "queen", (237, -3), "black-queen"),
+    Piece("black", "king", (317, -3), "black-king"),
+    Piece("black", "bishop", (397, -3), "black-bishop"),
+    Piece("black", "knight", (477, -3), "black-knight"),
+    Piece("black", "rook", (557, -3), "black-rook"),
+    Piece("black", "pawn", (-3, 75), "black-pawn"),
 
-blackKing = pygame.image.load('black-king.png').convert_alpha()
-blackKing_rect = blackKing.get_rect()
-blackKing = pygame.transform.scale(blackKing,
-                                     (blackKing.get_width() / size,
-                                      blackKing.get_height() / size))
-
-blackKnight = pygame.image.load('black-knight.png').convert_alpha()
-blackKnight_rect = blackKnight.get_rect()
-blackKnight = pygame.transform.scale(blackKnight,
-                                     (blackKnight.get_width() / size,
-                                      blackKnight.get_height() / size))
-
-blackPawn = pygame.image.load('black-pawn.png').convert_alpha()
-blackPawn_rect = blackPawn.get_rect()
-blackPawn = pygame.transform.scale(blackPawn,
-                                     (blackPawn.get_width() / size,
-                                      blackPawn.get_height() / size))
-
-blackQueen = pygame.image.load('black-queen.png').convert_alpha()
-blackQueen_rect = blackQueen.get_rect()
-blackQueen = pygame.transform.scale(blackQueen,
-                                     (blackQueen.get_width() / size,
-                                      blackQueen.get_height() / size))
-
-blackRook = pygame.image.load('black-rook.png').convert_alpha()
-blackRook_rect = blackRook.get_rect()
-blackRook = pygame.transform.scale(blackRook,
-                                     (blackRook.get_width() / size,
-                                      blackRook.get_height() / size))
-
-whiteBishop = pygame.image.load('white-bishop.png').convert_alpha()
-whiteBishopR_rect = whiteBishop.get_rect(topleft=(397, 555))
-whiteBishopL_rect = whiteBishop.get_rect(topleft=(157, 555))
-whiteBishop = pygame.transform.scale(whiteBishop,
-                                     (whiteBishop.get_width() / size,
-                                      whiteBishop.get_height() / size))
-
-whiteKing = pygame.image.load('white-king.png').convert_alpha()
-whiteKing_rect = whiteKing.get_rect(topleft=(317, 555))
-whiteKing = pygame.transform.scale(whiteKing,
-                                     (whiteKing.get_width() / size,
-                                      whiteKing.get_height() / size))
-
-whiteKnight = pygame.image.load('white-knight.png').convert_alpha()
-whiteKnightR_rect = whiteKnight.get_rect(topleft=(477, 555))
-whiteKnightL_rect = whiteKnight.get_rect(topleft=(77, 555))
-whiteKnight = pygame.transform.scale(whiteKnight,
-                                     (whiteKnight.get_width() / size,
-                                      whiteKnight.get_height() / size))
-
-whitePawn = pygame.image.load('white-pawn.png').convert_alpha()
-whitePawn_rect = whitePawn.get_rect()
-whitePawn = pygame.transform.scale(whitePawn,
-                                     (whitePawn.get_width() / size,
-                                      whitePawn.get_height() / size))
-
-whiteQueen = pygame.image.load('white-queen.png').convert_alpha()
-whiteQueen_rect = whiteQueen.get_rect(topleft=(237, 555))
-whiteQueen = pygame.transform.scale(whiteQueen,
-                                     (whiteQueen.get_width() / size,
-                                      whiteQueen.get_height() / size))
-
-whiteRook = pygame.image.load('white-rook.png').convert_alpha()
-whiteRookR_rect = whiteRook.get_rect(topleft=(-3, 555))
-whiteRookL_rect = whiteRook.get_rect(topleft=(557, 555))
-whiteRook = pygame.transform.scale(whiteRook,
-                                     (whiteRook.get_width() / size,
-                                      whiteRook.get_height() / size))
+    Piece("white", "rook", (-3, 555), "white-rook"),
+    Piece("white", "knight", (77, 555), "white-knight"),
+    Piece("white", "bishop", (157, 555), "white-bishop"),
+    Piece("white", "queen", (237, 555), "white-queen"),
+    Piece("white", "king", (317, 555), "white-king"),
+    Piece("white", "bishop", (397, 555), "white-bishop"),
+    Piece("white", "knight", (477, 555), "white-knight"),
+    Piece("white", "rook", (557, 555), "white-rook"),
+    Piece("white", "pawn", (-3, 477), "white-pawn")
+]
 
 running = True 
 while running:
 
     screen.blit(board, (0, 0))
-    screen.blit(blackRook, (557, -3))
-    screen.blit(blackKnight, (477, -3))
-    screen.blit(blackBishop, (397, -3))
-    screen.blit(blackKing, (317, -3))
-    screen.blit(blackQueen, (237, -3))
-    screen.blit(blackBishop, (157, -3))
-    screen.blit(blackKnight, (77, -3))
-    screen.blit(blackRook, (-3, -3))
-    x = -3
-    for i in range(1,9):
-        screen.blit(blackPawn, (x, 75))
-        x += 80
-    screen.blit(whiteRook, (whiteRookL_rect))
-    screen.blit(whiteKnight, (whiteKnightL_rect))
-    screen.blit(whiteBishop, (whiteBishopL_rect))
-    screen.blit(whiteQueen, (whiteQueen_rect))
-    screen.blit(whiteKing, (whiteKing_rect))
-    screen.blit(whiteBishop, whiteBishopR_rect)
-    screen.blit(whiteKnight, (whiteKnightR_rect))
-    screen.blit(whiteRook, (whiteRookR_rect))
-    x = -3
-    for i in range(1,9):
-        screen.blit(whitePawn, (x, 475))
-        x += 80
+
+    for piece_image, piece_rect in all_pieces:
+        screen.blit(piece_image, (piece_rect))
+
+    # screen.blit(black_rook_L.image, (black_rook_L.rect))
+    # screen.blit(black_knight_L.image, (black_knight_L.rect))
+    # screen.blit(black_bishop_L.image, (black_bishop_L.rect))
+    # screen.blit(black_queen.image, (black_queen.rect))
+    # screen.blit(black_king.image, (black_king.rect))
+    # screen.blit(black_bishop_R.image, (black_bishop_R.rect))
+    # screen.blit(black_knight_R.image, (black_knight_R.rect))
+    # screen.blit(black_rook_R.image, (black_rook_R.rect))
+    # screen.blit(black_pawn.image, (black_pawn.rect))
+
+    # screen.blit(white_rook_L.image, (white_rook_L.rect))
+    # screen.blit(white_knight_L.image, (white_knight_L.rect))
+    # screen.blit(white_bishop_L.image, (white_bishop_L.rect))
+    # screen.blit(white_queen.image, (white_queen.rect))
+    # screen.blit(white_king.image, (white_king.rect))
+    # screen.blit(white_bishop_R.image, (white_bishop_R.rect))
+    # screen.blit(white_knight_R.image, (white_knight_R.rect))
+    # screen.blit(white_rook_R.image, (white_rook_R.rect))
+    # screen.blit(white_pawn.image, (white_pawn.rect))
+    
 
     mouse_pos = pygame.mouse.get_pos()
     

@@ -11,7 +11,7 @@ class Piece:
         self.image = pygame.transform.scale(self.image,
                                      (self.image.get_width() / size,
                                       self.image.get_height() / size))
-        self.rect = self.image.get_rect(topleft=(position))
+        self.rect = self.image.get_rect(center=(position))
 
     def take_piece(self):
         pass

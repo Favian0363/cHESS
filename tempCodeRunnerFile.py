@@ -1,0 +1,1 @@
+Piece("black", "pawn", (x, 75), "black-pawn")
